@@ -1,0 +1,53 @@
+version: '3'
+services:
+  activemq:
+    container_name: activemq
+    image: bobcrutchley/activemq
+  mongodb:
+    container_name: mongodb
+    image: mongo
+  account-consumer:
+    container_name: account-consumer
+    build:
+      context: AccountConsumer
+      args:
+      - artifact_id=account-consumer
+      - version=1.0.0
+  account-service:
+    container_name: account-service
+    build:
+      context: AccountService
+      args:
+      - artifact_id=account-service
+      - version=1.0.0
+    ports:
+    - 8080:8080
+  letter-producer:
+    container_name: letter-producer
+    build:
+      context: AccountLetterProducer
+      args:
+      - artifact_id=letter-producer
+      - version=0.1.0
+  number-producer:
+    container_name: AccountNumberProducer
+    build:
+      context: AccountNumberProducer
+      args:
+      - artifact_id=AccountNumberProducer
+      - version=0.1.0
+  prize-producer:
+    container_name: AccountPrizeProducer
+    build:
+      context: AccountPrizeProducer
+      args:
+      - artifact_id=AccountPrizeProducer
+      - version=0.1.0
+  front-end:
+    container_name: AccountFrontEnd
+    build:
+      context: AccountFrontEnd
+      args:
+      - artifact_id=AccountFrontEnd
+      - version=0.1.0
+
